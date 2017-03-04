@@ -1,0 +1,13 @@
+plugins {
+	id "com.github.johnrengelman.shadow" version "1.2.3"
+}
+
+apply plugin: 'application'
+
+mainClassName = 'io.gitlab.arturbosch.javascript.shell.JavaScriptShell'
+
+dependencies {
+	compile project(":compiler")
+	compile 'org.jline:jline:3.1.2'
+}
+

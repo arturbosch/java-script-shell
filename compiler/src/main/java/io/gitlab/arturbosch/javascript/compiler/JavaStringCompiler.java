@@ -6,8 +6,6 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,7 +42,7 @@ public class JavaStringCompiler {
 			CompilationTask task = compiler.getTask(null, manager, null, null, null, fileObjects);
 			Boolean result = task.call();
 			if (result == null || !result) {
-				throw new RuntimeException("Compilation failed.");
+				throw new CompilationException("Compilation failed.");
 			}
 			return manager.getClassBytes();
 		}
@@ -65,23 +63,4 @@ public class JavaStringCompiler {
 		}
 	}
 
-	/**
-	 * Runs a compiled class by calling the main method.
-	 *
-	 * @param name       name of the class to call
-	 * @param classBytes cache of compiled java classes
-	 * @throws IOException               if something reflection related does not work
-	 * @throws ClassNotFoundException    if something reflection related does not work
-	 * @throws NoSuchMethodException     if something reflection related does not work
-	 * @throws IllegalAccessException    if something reflection related does not work
-	 * @throws InstantiationException    if something reflection related does not work
-	 * @throws InvocationTargetException if something reflection related does not work
-	 */
-	public void run(String name, Map<String, byte[]> classBytes) throws IOException, ClassNotFoundException,
-			NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
-		Class<?> aClass = loadClass(name, classBytes);
-		Method main = aClass.getMethod("main", String[].class);
-		Object o = aClass.newInstance();
-		main.invoke(o, (Object) null);
-	}
 }

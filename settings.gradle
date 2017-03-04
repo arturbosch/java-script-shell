@@ -1,3 +1,4 @@
 rootProject.name = 'java-script-shell'
 include 'compiler'
+include 'shell'
 
