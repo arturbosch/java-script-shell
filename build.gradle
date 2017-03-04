@@ -1,12 +1,14 @@
-group 'io.gitlab.arturbosch'
-version '0.1'
+allprojects {
+	group 'io.gitlab.arturbosch'
+	version '0.1'
 
-apply plugin: 'java'
+	apply plugin: 'java'
 
-repositories {
-	mavenCentral()
-}
+	repositories {
+		mavenCentral()
+	}
 
-dependencies {
-	testCompile group: 'junit', name: 'junit', version: '4.12'
+	dependencies {
+		testCompile group: 'junit', name: 'junit', version: '4.12'
+	}
 }
